@@ -23,7 +23,6 @@ subject_total<- rbind(subject_test, subject_train)
 rm(subject_test,subject_train)
 
 
-
 ## Select "mean" and "std" columns
 col_mean <- grep("*mean()*", features_names[,2])
 col_std  <- grep("*std()*", features_names[,2])
@@ -44,9 +43,9 @@ subject_total <- as.factor(subject_total[,1])
 LargeDataSet <- cbind(Y_total, subject_total, X_total)
 names(LargeDataSet) = c("activity", "subject", names(X_total))
 
-meltDS = melt(LargeDataSet, id=c("activity", "subject"), measure.vars = names(X_total))
+meltDS <- melt(LargeDataSet, id=c("activity", "subject"), measure.vars = names(X_total))
 rm(LargeDataSet)
-TidyDataSet = dcast(meltDS, activity + subject ~ variable, mean)
+TidyDataSet <- dcast(meltDS, activity + subject ~ variable, mean)
 rm(meltDS)
 
 # Write Output in Long (narrow) format
