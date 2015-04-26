@@ -4,10 +4,10 @@ This Script corresponds to the Course Project for the "Getting and Cleansing Dat
 
 ### Files included
 
-run_analysis.R  - R Scripting. See details below.
-tidydataset_narrow.txt - Output file Example (in narrow: variable / value format)
-Code Book.md - Variables description
-README.md - This file
+- run_analysis.R : R Scripting. See details below.
+- tidydataset_narrow.txt : Output file Example (in narrow: variable / value format)
+- Code Book.md : Variables description
+- README.md - This file
 
 Data to be analyzed must be downloaded and unzip to your working directory
 https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip 
@@ -45,10 +45,14 @@ Steps:
 Long Narrow format is accepted as tidy data, see Discussion Forums: https://class.coursera.org/getdata-013/forum/thread?thread_id=31
 
 ## How to read the results
-In order to read the output file use the following script:
+- In order to read the output file use the following script
+
 file<- read.table("tidydataset_narrow.txt")
 
-To transform it to a wide dataframe use the following:
+- To transform it to a wide dataframe use the following script
+
 names(file) <- c("activity", "subject", "variable", "value")
+
 library(reshape2)
+
 file<- dcast(file, activity + subject ~ variable)   
