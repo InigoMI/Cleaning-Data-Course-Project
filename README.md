@@ -41,7 +41,8 @@ Steps:
 - Then melt into another dataset (meltDS) in the long form: activity, subject, variable, value.
 - The melt dataset in casted to obtain the mean for each activity + subject combination
 (for details about dcast see help: http://127.0.0.1:14245/library/reshape2/html/cast.html)
-- This DataSet is then melt again to be saved in a long compact format.
+- This DataSet is then melt again to be saved in a long compact format. 
+Long Narrow format is accepted as tidy data, see Discussion Forums: https://class.coursera.org/getdata-013/forum/thread?thread_id=31
 
 ## How to read the results
 In order to read the output file use the following script:
