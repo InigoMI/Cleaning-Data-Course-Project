@@ -1,5 +1,4 @@
-library(plyr)
-library(dplyr)
+
 library(reshape2)
 
 ## Read the corresponding files
@@ -23,23 +22,24 @@ subject_train <- read.table("./UCI HAR Dataset/train/subject_train.txt")
 subject_total<- rbind(subject_test, subject_train)
 rm(subject_test,subject_train)
 
-##Merge the data frames
-names(X_total) = features_names[,2]
+
 
 ## Select "mean" and "std" columns
 col_mean <- grep("*mean()*", features_names[,2])
 col_std  <- grep("*std()*", features_names[,2])
 column_filter <- sort(c(col_mean, col_std))
 
+names(X_total) = features_names[,2]
 X_total <- X_total[, column_filter]
 
-## Give Activities descriptive names
+## Give Activities descriptive names. 
 Y_total <- as.factor(Y_total[,1])
 levels(Y_total) = activities_names[,2]
 
 subject_total <- as.factor(subject_total[,1])
 
-#Create the Data Set
+## Merge the data frames
+## Create the tidy Data Set
 
 LargeDataSet <- cbind(Y_total, subject_total, X_total)
 names(LargeDataSet) = c("activity", "subject", names(X_total))
@@ -47,7 +47,8 @@ names(LargeDataSet) = c("activity", "subject", names(X_total))
 meltDS = melt(LargeDataSet, id=c("activity", "subject"), measure.vars = names(X_total))
 rm(LargeDataSet)
 TidyDataSet = dcast(meltDS, activity + subject ~ variable, mean)
+rm(meltDS)
 
-TidyDataSet <- melt(TidyDataSet, id=c("activity", "subject"), measure.vars = names(X_total) )
-
+# Write Output in Long (narrow) format
+TidyDataSet <- melt(TidyDataSet, id=c("activity", "subject"), measure.vars = names(X_total))
 write.table(TidyDataSet, file = "tidydataset_narrow.txt", row.name = FALSE)
